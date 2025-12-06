@@ -39,7 +39,7 @@ def main():
     # Сайдбар для навигации
     page = st.sidebar.selectbox(
         "Выберите страницу",
-        ["Главная", "Загрузка данных", "Предсказания", "Веса"]
+        ["Главная", "Загрузка данных", "Предсказания", "Веса", 'EDA']
     )
     
     if page == "Главная":
@@ -50,6 +50,8 @@ def main():
         make_predictions(model)
     elif page == "Веса":
         weights(model)
+    elif page == "EDA":
+        eda()
 
 def show_home():
     st.header("Добро пожаловать!")
@@ -144,6 +146,23 @@ def weights(model):
     # Выводим таблицу
     st.subheader("Таблица коэффициентов")
     st.dataframe(coef_df_sorted)
+
+def eda():
+    st.header('EDA')
+
+    # Два изображения в строке с одинаковой шириной колонок
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.image(r'./pics/base_corr.png', caption="График корреляций")
+        st.write("Корреляция Пирсона")
+
+    with col2:
+        st.image(r'./pics/phik_corr.png', caption="График корреляций")
+        st.write("Корреляция из библиотеки phik")
+
+    
+    st.image(r'./pics/pairplot.png', caption="График попарных сравнений")
 
 if __name__ == "__main__":
     main()
